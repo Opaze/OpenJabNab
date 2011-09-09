@@ -51,7 +51,7 @@ bool PluginRatp::OnClick(Bunny * b, PluginInterface::ClickType type)
 		int pos = 0;
 
 		LogDebug(str);
-		QRegExp rx("([A-Za-z0-9]*)\\|([A-Za-z0-9]*)\\|([A-Za-z0-9]*)\\|([A-Za-z0-9_]*)");
+		QRegExp rx("([A-Za-z0-9]*)\\|([A-Za-z0-9]*)\\|([A-Za-z0-9-]*)\\|([A-Za-z0-9_]*)");
 		if(rx.indexIn(str, pos) != -1){
 			ligne = rx.cap(2);
 			arret = rx.cap(3);
@@ -116,6 +116,7 @@ void PluginRatp::getPageHoraire(Bunny * b,QString reseau, QString ligne, QString
 	Q_UNUSED(b);
 
 	QString sb = QString("http://wap.ratp.fr/siv/schedule?service=next&reseau=%1&lineid=%2&directionsens=%3&stationid=%4").arg(reseau,ligne,direction,arret);
+//	LogDebug(sb);
 	QUrl url(sb);
 	QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 	manager->setProperty("BunnyID", b->GetID());

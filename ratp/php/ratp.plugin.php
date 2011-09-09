@@ -100,7 +100,7 @@ $arret = array("T1" => array("T1_326_327" => "AUGUSTE DELAUNE",
 "8" => "LE VESINET LE PECQ",
 "27" => "LOGNES",
 "24" => "MARNE LA VALLEE-CHESSY",
-"34-14" => "NANTERRE PREFECTURE",
+"14-34" => "NANTERRE PREFECTURE",
 "13" => "NANTERRE UNIVERSITE",
 "12" => "NANTERRE VILLE",
 "1" => "NATION",
@@ -121,7 +121,7 @@ $arret = array("T1" => array("T1_326_327" => "AUGUSTE DELAUNE",
 "RB" => array("19" => "ANTONY",
 "14" => "ARCUEIL CACHAN",
 "13" => "BAGNEUX",
-"22-12" => "BOURG LA REINE",
+"12-22" => "BOURG LA REINE",
 "27" => "BURES SUR YVETTE",
 "1" => "CHATELET",
 "6" => "CITE UNIVERSITAIRE",
@@ -637,7 +637,10 @@ if(isset($_POST['addReseau']) && isset($_POST['addLigne']) && $_POST['addLigne']
 	<option value=""></option>
 	<?php if(!empty($pList))
 	foreach($pList as $item) { ?>
-		<option value="<?php echo urldecode($item) ?>"><?php echo urldecode($item); ?></option>
+		<option value="<?php echo urldecode($item) ?>"><?php 
+		$tmp = explode("|", urldecode($item));
+		echo $tmp[0]." - ".$tmp[1]." - ".$arret[$tmp[1]][$tmp[2]]." - ".$direction[$tmp[1]][$tmp[3]];
+		?></option>
 	<?php } ?>
 </select><br />
 <input type="radio" name="a" value="rfidadd" /> Ajouter une action RFID pour <select name="item">
@@ -714,7 +717,11 @@ if(isset($wList['list']->item)){
 ?>
 	<tr<?php echo $i++ % 2 ? " class='l2'" : "" ?>>
 		<td><?php echo urldecode($item->key) ?></td>
-		<td><?php echo $item->value ?></td>
+		<td><?php 
+		$tmp = explode("|", urldecode($item->value));
+		echo $tmp[0]." - ".$tmp[1]." - ".$arret[$tmp[1]][$tmp[2]]." - ".$direction[$tmp[1]][$tmp[3]];
+		//echo $item->value 
+		?></td>
 		<td width="15%"><a href="bunny_plugin.php?p=ratp&rw=<?php echo $item->key ?>">Remove</a></td>
 	</tr>
 <?php  } ?>
